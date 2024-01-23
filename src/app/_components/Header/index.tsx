@@ -29,7 +29,7 @@ export default function Header() {
                     </a>
                     <nav className="md:ml-auto flex items-center text-base justify-center invisible md:visible">
                         {menuItems.map(item => (
-                            <Link href={item.href} className="mr-5 hover:text-gray-900">{item.name}</Link>
+                            <Link key={item.href} href={item.href} className="mr-5 hover:text-gray-900">{item.name}</Link>
                         ))}
                         <button className="flex items-center">
                             <ShoppingBagIcon onClick={toggleCart} className="w-[24px] mr-2 mb-1"/>(2)
@@ -43,7 +43,7 @@ export default function Header() {
             {menuActive && (
                 <div className="mobile-menu w-full flex flex-col text-center md:invisible">
                     {menuItems.map(item => (
-                        <Link href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
+                        <Link key={item.href} href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
                     ))}
                     <button className="flex flex-row items-center mx-auto mt-5">
                         <ShoppingBagIcon onClick={toggleCart} className="w-[24px] mr-2 mb-1"/> Carrinho (2)
