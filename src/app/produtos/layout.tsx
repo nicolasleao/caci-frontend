@@ -15,7 +15,9 @@ export default function ProductsLayout({
   return (
     <div>
         <Header />
-        {children}
+        <div className="min-h-[80vh]">
+          {children}
+        </div>
         <Footer />
     </div>
   )
