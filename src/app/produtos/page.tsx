@@ -1,34 +1,17 @@
-import Image from "next/image"
-import { formatCurrency } from "../_components/utils"
+"use client"
+
+import { useState, useEffect } from "react"
 import ProductList from "../_components/ProductList"
-import lisaBranca from "@/assets/img/camiseta-lisa-branca-frente.png"
-import lisaBrancaAlt from "@/assets/img/camiseta-lisa-branca-verso.png"
-import lisaPreta from "@/assets/img/camiseta-lisa-preta-frente.png"
-import lisaPretaAlt from "@/assets/img/camiseta-lisa-preta-verso.png"
+import { getProducts } from "../_utils/api"
 
 export default function Products() {
-    const products = [
-        {
-            id: 1,
-            name: 'Camiseta Lisa Branca',
-            price: 11000,
-            priceOld: 12999,
-            images: [
-                lisaBranca,
-                lisaBrancaAlt
-            ]
-        },
-        {
-            id: 2,
-            name: 'Camiseta Lisa Preta',
-            price: 11000,
-            priceOld: 12999,
-            images: [
-                lisaPreta,
-                lisaPretaAlt
-            ]
-        }
-    ]
+    const [products, setProducts] = useState<any[]>([])
+    useEffect(() => {
+        const result = getProducts()
+        setProducts(result)
+    }, [getProducts])
+
+    if (!products.length) return <></>
     return (
         <ProductList products={products} />
     )
