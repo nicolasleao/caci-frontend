@@ -41,17 +41,13 @@ export default function Header() {
         setSubtotal(total)
         setSubtotalOld(totalOld)
     }, [getProducts])
-
-    useEffect(() => {
-        console.log(windowDimensions)
-    }, [windowDimensions])
     
     return (
         <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-            <div id="cart-backdrop" className="fixed inset-0 bg-gray-500 bg-opacity-75 hidden cursor-pointer" onClick={closeCart}></div>
+            <div id="cart-backdrop" className="fixed inset-0 bg-gray-500 bg-opacity-75 hidden cursor-pointer"></div>
             <div id="cart-wrapper" className="fixed inset-0 overflow-hidden hidden">
                 <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">
-                    <div className="pointer-events-auto w-screen max-w-md" onClick={closeCart}>
+                    <div className="pointer-events-auto w-screen max-w-md">
                     <div className="flex h-full flex-col overflow-y-auto bg-white shadow-xl">
                         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                         <div className="flex items-start justify-between">
@@ -119,7 +115,7 @@ export default function Header() {
                         </div>
                         <p className="mt-0.5 text-sm text-gray-500">O valor do frete será calculado no checkout.</p>
                         <div className="mt-6">
-                            <a href="#" className="flex items-center justify-center rounded-md border border-transparent bg-gray-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700">Finalizar Compra</a>
+                            <a href="/carrinho" className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-gray-700">Finalizar Compra</a>
                         </div>
                         <div className="mt-2 flex justify-center text-center text-sm text-gray-500">
                             <button onClick={closeCart} type="button" className="font-medium text-gray-600 hover:text-gray-500">

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { getProducts } from "@/app/_utils/api"
 import Image from "next/image"
-import Products from "../page"
+import sizingGuide from "@/assets/img/sizing-guide.webp"
 import { formatCurrency } from "@/app/_utils"
 
 export default function Product({ params, search }: any) {
@@ -57,7 +57,7 @@ export default function Product({ params, search }: any) {
               <Image src={image} alt={`foto de ${product.name}`} className="h-full w-full object-cover object-center" />
             </div>
           ))}
-{/*           
+          {/*           
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
               <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Model wearing plain black basic tee." className="h-full w-full object-cover object-center" />
@@ -83,12 +83,11 @@ export default function Product({ params, search }: any) {
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">{formatCurrency(product.price)} <span className="text-red-400 line-through text-lg">{formatCurrency(product.priceOld)}</span></p>
 
-            {/* Reviews */}
+            {/* Reviews
             <div className="mt-6">
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
                 <div className="flex items-center">
-                  {/* Active: "text-gray-900", Default: "text-gray-200" */}
                   <svg className="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
                   </svg>
@@ -108,7 +107,7 @@ export default function Product({ params, search }: any) {
                 <p className="sr-only">4 out of 5 stars</p>
                 <a href="#" className="ml-3 text-sm font-medium text-gray-600 hover:text-gray-500">117 avaliações</a>
               </div>
-            </div>
+            </div>  */}
 
             <form className="mt-10">
               {/* Colors */}
@@ -145,7 +144,7 @@ export default function Product({ params, search }: any) {
                 <fieldset aria-label="Choose a size" className="mt-4">
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
                       <span>PP</span>
                       <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
@@ -155,7 +154,7 @@ export default function Product({ params, search }: any) {
                       </span>
                     </label>
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
                       <span>P</span>
                       <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
@@ -165,7 +164,7 @@ export default function Product({ params, search }: any) {
                       </span>
                     </label>
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="S" className="sr-only"/>
                       <span>M</span>
                       {/*
@@ -175,7 +174,7 @@ export default function Product({ params, search }: any) {
                       <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                     </label>
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="M" className="sr-only"/>
                       <span>G</span>
                       {/*
@@ -185,7 +184,7 @@ export default function Product({ params, search }: any) {
                       <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                     </label>
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="L" className="sr-only"/>
                       <span>XG</span>
                       {/*
@@ -195,7 +194,7 @@ export default function Product({ params, search }: any) {
                       <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                     </label>
                     {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-2 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
                       <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
                       <span>XXG</span>
                       <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
@@ -218,30 +217,25 @@ export default function Product({ params, search }: any) {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: &quot;Black&quot;. Need to add an extra pop of color to your outfit? Our white tee has you covered.</p>
+                <p className="text-base text-gray-900">A Sun Faded Basics Tee - Black é fabricada em malha premium 100% algodão com alta gramatura de 270 GSM. Com modelagem relaxed e gola de 2,5 cm, a peça exibe um visual vintage, com desbotamento leve e pequenos puídos na gola, mangas e barras. A camiseta conta com uma pequena estampa em silk na parte frontal e um detalhe em pedra turquesa próximo à gola na parte traseira.
+
+O modelo mede 1,83m e veste o tamanho M.</p>
               </div>
             </div>
 
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+              <h3 className="text-sm font-medium text-gray-900">Atributos</h3>
 
               <div className="mt-4">
                 <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  <li className="text-gray-400"><span className="text-gray-600">Hand cut and sewn locally</span></li>
-                  <li className="text-gray-400"><span className="text-gray-600">Dyed with our proprietary colors</span></li>
-                  <li className="text-gray-400"><span className="text-gray-600">Pre-washed &amp; pre-shrunk</span></li>
-                  <li className="text-gray-400"><span className="text-gray-600">Ultra-soft 100% cotton</span></li>
+                  <li className="text-gray-400"><span className="text-gray-600">Modelagem Street confeccionada em 100% algodão heavyweight desenvolvido exclusivamente pela CACI</span></li>
+                  <li className="text-gray-400"><span className="text-gray-600">Gráfico exclusivo disponível em edição limitada</span></li>
+                  <li className="text-gray-400"><span className="text-gray-600">Pre-lavada e pre-encolhida</span></li>
                 </ul>
               </div>
             </div>
 
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming &quot;Charcoal Gray&quot; limited release.</p>
-              </div>
-            </div>
+            <Image src={sizingGuide} alt="Guia de tamanhos" className="w-[70%]"/>
           </div>
         </div>
       </div>

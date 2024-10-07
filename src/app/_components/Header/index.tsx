@@ -25,10 +25,6 @@ export default function Header() {
 
     const menuItems = [
         {
-            name: 'Início',
-            href: '/'
-        },
-        {
             name: 'Shop',
             href: '/produtos'
         },
@@ -37,15 +33,11 @@ export default function Header() {
             href: '/sobre'
         },
     ]
-
-    useEffect(() => {
-        console.log(windowDimensions)
-    }, [windowDimensions])
     
     return (
         <>
-            <header className="text-gray-600 body-font border-bottom border">
-                <div className="mx-auto flex p-5 flex-row items-center justify-between">
+            <header className="text-gray-600 body-font border-bottom container mx-auto">
+                <div className="mx-auto flex p-5 flex-row items-center justify-between h-[55px]">
                     <a href="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                         <Image className="ml-3" src={logoTransparent} alt="Logo principal" width="100" />
                     </a>
