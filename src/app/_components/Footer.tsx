@@ -7,7 +7,7 @@ interface FooterProps {
 
 export default function Footer(props: FooterProps) {
     return (
-        <footer className="bg-white w-full pt-4 sm:pt-10 lg:pt-12 bottom-0">
+        <footer className="bg-black text-white w-full pt-4 sm:pt-10 lg:pt-12 bottom-0">
             {props.showSafeBrowsing && (<a target="_blank" href="https://transparencyreport.google.com/safe-browsing/search?url=caci.com.br&hl=pt_BR" className="text-center">
                 <Image width="200" src={GoogleSafeBrowsing} alt="Safe Browsing seal" className="mx-auto mb-6" />
             </a>)}

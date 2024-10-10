@@ -8,6 +8,8 @@ import cursivaBranca from "@/assets/img/caci-cursivo.jpg"
 import seagulls from "@/assets/img/caci-seagulls.jpg"
 import cloudyPreta from "@/assets/img/caci-cloudy.jpg"
 
+import SubscribeModal from "../_components/SubscribeModal"
+
 
 export default function Home() {
   return (
@@ -57,6 +59,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <SubscribeModal />
     </div>
   )
 }
