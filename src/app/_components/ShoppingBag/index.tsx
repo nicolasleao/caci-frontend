@@ -43,7 +43,7 @@ export default function Header() {
     }, [getProducts])
     
     return (
-        <div className="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div className="relative z-10 caci-cart-ajax" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
             <div id="cart-backdrop" className="fixed inset-0 bg-gray-500 bg-opacity-75 hidden cursor-pointer"></div>
             <div id="cart-wrapper" className="fixed inset-0 overflow-hidden hidden">
                 <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full">

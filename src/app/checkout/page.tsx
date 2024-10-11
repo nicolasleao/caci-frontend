@@ -5,10 +5,13 @@ import PixLogo from "@/assets/img/pix-logo.svg";
 import Image from "next/image";
 import { debounce } from "../_utils";
 import DeliveryTruckIcon from "@/assets/img/delivery-truck-icon.svg";
+import GoogleSafeBrowsing from "@/assets/img/google-safe-browsing.png";
+import Stepper from "../_components/Stepper";
 
 export default function Checkout() {
   const [isLocal, setIsLocal] = useState(false)
   const [hasCep, setHasCep] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
 
   const callViaCep = (cep: string) => {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
@@ -95,17 +98,31 @@ export default function Checkout() {
     }
     document.querySelector(`#step-${step}`)!.classList.add('visible')
     document.querySelector(`#step-${step}`)!.classList.remove('hidden')
+    setCurrentStep(step)
   }
 
+  const stepperSteps = [
+    {
+      label: 'Dados Pessoais',
+    },
+    {
+      label: 'Entrega',
+    },
+    {
+      label: 'Pagamento',
+    }
+  ]
+
   return (
-    <div>
-        <div className="font-sans bg-white p-4">
+    <div className="mt-10">
+      <div className="font-sans bg-white p-4">
       <div className="max-w-4xl mx-auto mt-24">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold text-gray-800 inline-block border-b-[3px] border-gray-800 pb-1">Checkout</h2>
         </div>
-
+        
         <div className="mt-24">
+          <Stepper currentStep={currentStep} steps={stepperSteps} />
           <div id="step-1">
             <div className="grid md:grid-cols-3 gap-4">
               <div>
@@ -135,7 +152,7 @@ export default function Checkout() {
             <div className="flex flex-wrap justify-end gap-4 mt-12">
               <button
                 type="button"
-                className="px-6 py-3 text-sm font-semibold tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-6 py-3 text-sm font-semibold tracking-wide bg-black text-white rounded-md hover:bg-blue-700"
                 onClick={() => validateStep(1, () => setStep(2))}
               >
                 Continuar
@@ -228,7 +245,7 @@ export default function Checkout() {
               </button>
               <button
                 type="button"
-                className="px-6 py-3 text-sm font-semibold tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                className="px-6 py-3 text-sm font-semibold tracking-wide bg-black text-white rounded-md hover:bg-blue-700"
                 onClick={() => validateStep(2, () => setStep(3))}
               >
                 Continuar
@@ -288,12 +305,13 @@ export default function Checkout() {
                 Voltar
               </button>
               <button type="button" onClick={() => validateStep(3, () => alert('Compra realizada com sucesso'))}
-                className="px-6 py-3 text-sm font-semibold tracking-wide bg-blue-600 text-white rounded-md hover:bg-blue-700">Pagar Agora</button>
+                className="px-6 py-3 text-sm font-semibold tracking-wide bg-black text-white rounded-md hover:bg-blue-700">Pagar Agora</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <Image width="200" src={GoogleSafeBrowsing} alt="Safe Browsing seal" className="mx-auto mb-2 mt-16" />
     </div>
   )
 }

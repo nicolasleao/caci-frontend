@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Bars4Icon, ShoppingBagIcon } from '@heroicons/react/24/solid'
 import logoTransparent from "@/assets/img/logo_transparente.png"
 import Image from "next/image"
-import { useWindowDimensions } from "@/app/_hooks/responsiveness"
+import { useWindowDimensions, useWindowScroll } from "@/app/_hooks/responsiveness"
 import ShoppingBag from "@/app/_components/ShoppingBag"
 import gsap from "gsap"
 
@@ -22,6 +22,7 @@ export default function Header() {
     }
 
     const windowDimensions = useWindowDimensions()
+    const scrollY = useWindowScroll()
 
     const menuItems = [
         {
@@ -36,8 +37,8 @@ export default function Header() {
     
     return (
         <>
-            <header className="text-gray-600 body-font border-bottom container mx-auto">
-                <div className="mx-auto flex p-5 flex-row items-center justify-between h-[55px]">
+            <header className={`${scrollY >= 30 ? 'scroll' : ''} caci-header text-gray-600 body-font border-bottom mx-auto fixed bg-white w-full border-b border-gray-100`}>
+                <div className={`caci-header-inner mx-auto flex p-5 flex-row items-center justify-between ${scrollY >= 30 ? 'h-[42px]' : 'h-[55px]'}`}>
                     <a href="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                         <Image className="ml-3" src={logoTransparent} alt="Logo principal" width="100" />
                     </a>

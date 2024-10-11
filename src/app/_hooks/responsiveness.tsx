@@ -29,3 +29,20 @@ export const useWindowDimensions = () => {
 
     return windowDimensions
 }
+
+export const useWindowScroll = () => {
+    const [scrollY, setScrollY] = useState(0)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY)
+        }
+
+        if (typeof window !== "undefined") {
+            window.addEventListener('scroll', handleScroll)
+            return () => window.removeEventListener('scroll', handleScroll)
+        }
+    })
+
+    return scrollY
+}

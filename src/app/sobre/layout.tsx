@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import TopBar from '../_components/TopBar'
 import Header from '@/app/_components/Header/index'
 import Footer from '@/app/_components/Footer'
 
@@ -14,8 +15,9 @@ export default function ProductsLayout({
 }) {
   return (
     <div>
+        <TopBar />
         <Header />
-        <div className="min-h-[80vh]">
+        <div className="min-h-[80vh] mt-[132px]">
           {children}
         </div>
         <Footer />

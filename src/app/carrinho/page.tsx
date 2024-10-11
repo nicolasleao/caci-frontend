@@ -23,7 +23,7 @@ export default function FullCart() {
 
   return (
     <>
-    <div className="font-sans container mx-auto bg-white py-4">
+    <div className="font-sans container mx-auto bg-white py-4 mt-20">
             <h1 className="text-3xl font-bold text-gray-800 text-center mt-12">Carrinho</h1>
 
             <div className="grid md:grid-cols-3 gap-8 mt-16">
@@ -112,11 +112,13 @@ export default function FullCart() {
                                     </svg>
                                 </div>
 
-                                <div className="relative flex items-center">
-                                    <input type="text" placeholder="CEP (Ex. 111.111.111-11)"
-                                        className="px-4 py-2.5 bg-white text-gray-800 rounded-md w-full text-sm border-b focus:border-gray-800 outline-none" />
+                                <div className="flex w-full justify-between">
+                                    <div className="w-[68%] flex items-center">
+                                        <input type="text" placeholder="CEP (Ex. 111.111.111-11)"
+                                            className="px-4 py-2.5 bg-white text-gray-800 rounded-md w-full text-sm border-b focus:border-gray-800 outline-none" />
+                                    </div>
+                                    <button type="button" className="text-sm px-4 py-2.5 w-[30%] font-semibold tracking-wide bg-black hover:bg-gray-800 text-white rounded-md">Calcular Frete</button>
                                 </div>
-                                <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-gray-700 hover:bg-gray-800 text-white rounded-md">Calcular Frete</button>
                             </div>
                         </div>
                     </form>
@@ -130,8 +132,8 @@ export default function FullCart() {
                     </ul>
 
                     <div className="mt-6 space-y-3">
-                        <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-gray-800 hover:bg-gray-900 text-white rounded-md w-full" onClick={() => window.location.href = '/checkout'}>Continuar para Pagamento</button>
-                        <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-transparent text-gray-800 border border-gray-300 rounded-md" onClick={() => window.location.href = '/produtos'}>Continuar Comprando</button>
+                        <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-black hover:bg-gray-900 text-white rounded-md w-full" onClick={() => window.location.href = '/checkout'}>Continuar para Pagamento</button>
+                        <button type="button" className="text-sm px-4 py-2.5 w-full font-semibold tracking-wide bg-gray-300 text-gray-800 border border-gray-300 rounded-md" onClick={() => window.location.href = '/produtos'}>Continuar Comprando</button>
                     </div>
                 </div>
 

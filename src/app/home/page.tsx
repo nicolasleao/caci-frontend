@@ -20,7 +20,7 @@ export default function Home() {
         </Link>
       </div>
       <Link href="/produtos">
-        <div className="w-full flex">
+        <div className="w-full flex h-50vh">
             <Image src={vertical1} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-10 pr-5 pl-10" />
             <Image src={vertical2} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-10 pl-5 pr-10" />
         </div>
