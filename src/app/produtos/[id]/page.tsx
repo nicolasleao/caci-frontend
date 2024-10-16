@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getProducts } from "@/app/_utils/api"
+import { getProducts } from "@/app/_services/catalog.service"
 import Image from "next/image"
 import sizingGuide from "@/assets/img/sizing-guide.webp"
 import { formatCurrency } from "@/app/_utils"

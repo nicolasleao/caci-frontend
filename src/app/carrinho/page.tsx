@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { getProducts } from "@/app/_utils/api"
+import { getProducts } from "@/app/_services/catalog.service"
 import { formatCurrency } from "../_utils"
 import Image from "next/image"
 

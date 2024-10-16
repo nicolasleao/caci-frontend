@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import ProductList from "../_components/ProductList"
-import { getProducts } from "../_utils/api"
+import { getProducts } from "@/app/_services/catalog.service"
 
 export default function Products() {
     const [products, setProducts] = useState<any[]>([])

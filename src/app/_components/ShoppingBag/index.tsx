@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { formatCurrency } from "@/app/_utils/index"
 import Image from "next/image"
 import { useWindowDimensions } from "@/app/_hooks/responsiveness"
-import { getProducts } from "@/app/_utils/api"
+import { getProducts } from "@/app/_services/catalog.service"
 import gsap from "gsap"
 
 export default function Header() {
