@@ -72,7 +72,7 @@ export default function FullCart() {
                 </div>
                   
 
-                <div className="bg-gray-100 rounded-md p-4 h-max">
+                <div className="bg-gray-100 p-4 h-max">
                     <h3 className="text-lg max-sm:text-base font-bold text-gray-800 border-b border-gray-300 pb-2">Resumo do Pedido</h3>
 
                     <form className="mt-6">

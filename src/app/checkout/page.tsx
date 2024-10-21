@@ -5,7 +5,7 @@ import PixLogo from "@/assets/img/pix-logo.svg";
 import Image from "next/image";
 import { debounce } from "../_utils";
 import DeliveryTruckIcon from "@/assets/img/delivery-truck-icon.svg";
-import GoogleSafeBrowsing from "@/assets/img/google-safe-browsing.png";
+import GoogleSafeBrowsing from "@/assets/img/google-safe-browsing-2.png";
 import Stepper from "../_components/Stepper";
 
 export default function Checkout() {
@@ -311,7 +311,7 @@ export default function Checkout() {
         </div>
       </div>
     </div>
-    <Image width="200" src={GoogleSafeBrowsing} alt="Safe Browsing seal" className="mx-auto mb-2 mt-16" />
+    <a className="mt-24" href="https://transparencyreport.google.com/safe-browsing/search?url=caci.com.br&hl=pt_BR" target="_blank"><Image width="200" src={GoogleSafeBrowsing} alt="Safe Browsing seal" className="mx-auto mb-2 mt-[140px]" /></a>
     </div>
   )
 }

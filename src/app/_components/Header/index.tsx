@@ -56,11 +56,11 @@ export default function Header() {
                 </div>
             </header>
             {menuActive && (
-                <div className="mobile-menu w-full flex flex-col text-center md:invisible">
+                <div className={`mobile-menu w-full flex flex-col text-center md:invisible fixed bg-white ${scrollY > 30 ? 'pt-8' : 'pt-20'}`}>
                     {menuItems.map(item => (
                         <Link key={item.href} href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
                     ))}
-                    <button onClick={openCart} className="flex flex-row items-center mx-auto mt-5">
+                    <button onClick={openCart} className="flex flex-row items-center mx-auto mt-5 mb-4">
                         <ShoppingBagIcon className="w-[24px] mr-2 mb-1"/> Carrinho (4)
                     </button>
                 </div>

@@ -18,21 +18,29 @@
 .caci-header {
     top: 28px;
     position: fixed;
-    transition: top 0.1s ease;
-    z-index: 100;
+    transition: top 0.1s linear;
+    z-index: 160;
 }
 
 .caci-header.scroll {
     top: 0;
-    transition: top 0.1s ease;
+    transition: top 0.1s linear;
 }
 
 .caci-header-inner {
-    transition: height 0.3s ease 0s;
+    transition: height 0.2s ease 0s;
 }
 
 .caci-cart-ajax {
     z-index: 500;
+}
+
+.top-bar {
+    z-index: 151;
+}
+
+.mobile-menu {
+    z-index: 150;
 }
 
 @keyframes slide {
