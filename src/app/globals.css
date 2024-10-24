@@ -52,3 +52,11 @@
         transform: translateX(-400px);
     }
 }
+
+
+/* mobile breakpoint at 768px */
+@media only screen and (max-width: 768px) {
+    .caci-header, .caci-header-inner, .caci-header.scroll {
+        transition: none;
+    }
+}
