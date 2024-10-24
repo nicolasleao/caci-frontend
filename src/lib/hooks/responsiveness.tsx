@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { debounce } from "../_utils";
+import { debounce } from "../utils";
 
 const getWindowDimensions = () => {
     if (typeof window !== "undefined") {

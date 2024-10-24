@@ -1,12 +1,12 @@
 "use client"
 import { useState } from "react"
-import { useAppDispatch } from "@/lib/hooks"
-import { openCart } from "@/lib/features/cart/uiSlice"
+import { useAppDispatch } from "@/lib/hooks/redux"
+import { openCart } from "@/lib/features/ui/ui.slice"
 import Link from "next/link"
 import { Bars4Icon, ShoppingBagIcon } from '@heroicons/react/24/solid'
 import logoTransparent from "@/assets/img/logo_transparente.png"
 import Image from "next/image"
-import { useWindowScroll } from "@/app/_hooks/responsiveness"
+import { useWindowScroll } from "@/lib/hooks/responsiveness"
 import ShoppingBag from "@/app/_components/ShoppingBag"
 
 export default function Header() {

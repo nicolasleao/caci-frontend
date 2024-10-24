@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PixLogo from "@/assets/img/pix-logo.svg";
 import Image from "next/image";
-import { debounce } from "../_utils";
+import { debounce } from "../../lib/utils";
 import DeliveryTruckIcon from "@/assets/img/delivery-truck-icon.svg";
 import GoogleSafeBrowsing from "@/assets/img/google-safe-browsing-2.png";
 import Stepper from "../_components/Stepper";

@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { getCartItems, CartItem } from "@/app/_services/cart.service"
-import { formatCurrency } from "../_utils"
+import { formatCurrency } from "../../lib/utils"
 import Image from "next/image"
 
 export default function FullCart() {

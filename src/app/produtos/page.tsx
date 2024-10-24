@@ -1,15 +1,20 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import ProductList from "../_components/ProductList"
-import { getProducts } from "@/app/_services/catalog.service"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
+import { fetchProducts } from "@/lib/features/product/product.actions"
+import { Product } from "@/lib/features/product/product.slice"
 
 export default function Products() {
-    const [products, setProducts] = useState<any[]>([])
+    const dispatch = useAppDispatch()
+    const products: Product[] = useAppSelector(state => state.product.allProducts)
+
     useEffect(() => {
-        const result = getProducts()
-        setProducts(result)
-    }, [getProducts])
+        if (!products?.length) {
+            dispatch(fetchProducts)
+        }
+    }, [products])
 
     if (!products.length) return <></>
     return (

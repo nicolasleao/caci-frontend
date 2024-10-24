@@ -12,8 +12,9 @@ import seagulls from "@/assets/img/caci-seagulls.jpg"
 import seagullsAlt from "@/assets/img/caci-seagulls-alt.jpg"
 import seagullsPreview from "@/assets/img/caci-seagulls-preview.jpg"
 // import cursivaPretaPreview from "@/assets/img/render-caci-cursivo-laranja.gif"
+import { Product } from "../features/product/product.slice"
 
-export const database = {
+export const database: { products: Product[] } = {
     products: [
         {
             id: 1,
@@ -24,6 +25,12 @@ export const database = {
                 cursivaBranca,
                 cursivaBrancaAlt,
                 cursivaBrancaPreview
+            ],
+            variations: [
+                { id: 1, name: 'P', inStock: true },
+                { id: 2, name: 'M', inStock: true },
+                { id: 3, name: 'G', inStock: true },
+                { id: 4, name: 'GG', inStock: true }
             ]
         },
         {
@@ -35,6 +42,12 @@ export const database = {
                 cloudyPreta,
                 cloudyPretaAlt,
                 cloudyPretaPreview
+            ],
+            variations: [
+                { id: 5, name: 'P', inStock: true },
+                { id: 6, name: 'M', inStock: true },
+                { id: 7, name: 'G', inStock: true },
+                { id: 8, name: 'GG', inStock: true }
             ]
         },
         {
@@ -46,6 +59,12 @@ export const database = {
                 seagulls,
                 seagullsAlt,
                 seagullsPreview
+            ],
+            variations: [
+                { id: 9, name: 'P', inStock: true },
+                { id: 10, name: 'M', inStock: true },
+                { id: 11, name: 'G', inStock: true },
+                { id: 12, name: 'GG', inStock: true }
             ]
         },
         {
@@ -57,55 +76,13 @@ export const database = {
                 cursivaPreta,
                 cursivaPretaAlt,
                 cursivaBrancaPreview
+            ],
+            variations: [
+                { id: 13, name: 'P', inStock: true },
+                { id: 14, name: 'M', inStock: true },
+                { id: 15, name: 'G', inStock: true },
+                { id: 16, name: 'GG', inStock: true }
             ]
         },
-    ],
-    cart: {
-        items: [
-            {
-                id: 1,
-                name: 'CACI Cursiva Branca',
-                price: 13999,
-                priceOld: 17000,
-                images: [
-                    cursivaBranca,
-                    cursivaBrancaAlt,
-                    cursivaBrancaPreview
-                ]
-            },
-            {
-                id: 2,
-                name: 'CACI Cloudy',
-                price: 13999,
-                priceOld: 17000,
-                images: [
-                    cloudyPreta,
-                    cloudyPretaAlt,
-                    cloudyPretaPreview
-                ]
-            },
-            {
-                id: 3,
-                name: 'CACI Seagulls',
-                price: 13999,
-                priceOld: 17000,
-                images: [
-                    seagulls,
-                    seagullsAlt,
-                    seagullsPreview
-                ]
-            },
-            {
-                id: 4,
-                name: 'CACI Cursiva v002',
-                price: 13999,
-                priceOld: 17000,
-                images: [
-                    cursivaPreta,
-                    cursivaPretaAlt,
-                    cursivaBrancaPreview
-                ]
-            },
-        ]
-    }
+    ]
 }

@@ -71,10 +71,9 @@ const cartSlice = createSlice({
                     if (state.items[i].quantity <= 0) {
                         state.items.splice(i, 1)
                     } else {
-                        total += (state.items[i].price * state.items[i].quantity)
-                        totalOld += (state.items[i].priceOld * state.items[i].quantity)
+                        total += (state.items[i].price * action.payload.quantity)
+                        totalOld += (state.items[i].priceOld * action.payload.quantity)
                     }
-                    break;
                 }
             }
 

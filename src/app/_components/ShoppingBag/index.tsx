@@ -1,9 +1,9 @@
 "use client"
 import { useEffect, useState } from "react"
-import { useAppDispatch, useAppSelector } from "@/lib/hooks"
-import { CartItem, addToCart, removeFromCart } from "@/lib/features/cart/cartSlice"
-import { closeCart } from "@/lib/features/cart/uiSlice"
-import { formatCurrency } from "@/app/_utils/index"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
+import { CartItem, addToCart, removeFromCart } from "@/lib/features/cart/cart.slice"
+import { closeCart } from "@/lib/features/ui/ui.slice"
+import { formatCurrency } from "@/lib/utils/index"
 import Image from "next/image"
 import gsap from "gsap"
 

@@ -1,33 +1,57 @@
 "use client"
 import { useEffect, useState } from "react"
-import { getProducts } from "@/app/_services/catalog.service"
-import { useAppDispatch } from "@/lib/hooks"
-import { CartItem, addToCart } from "@/lib/features/cart/cartSlice"
-import { openCart } from "@/lib/features/cart/uiSlice"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
+import { addToCart } from "@/lib/features/cart/cart.slice"
+import { openCart } from "@/lib/features/ui/ui.slice"
+import { fetchProducts } from "@/lib/features/product/product.actions"
 import Image from "next/image"
 import sizingGuide from "@/assets/img/sizing-guide.webp"
-import { formatCurrency } from "@/app/_utils"
+import { formatCurrency } from "@/lib/utils"
+import { Variation } from "@/lib/features/product/product.slice"
 
 export default function Product({ params, search }: any) {
   const dispatch = useAppDispatch()
   const [product, setProduct] = useState<any>(null)
-  const [variation, setVariation] = useState<string>("")
+  const products = useAppSelector(state => state.product.allProducts)
+  const [selectedVariation, setSelectedVariation] = useState<number>(0)
 
   useEffect(() => {
-    if (params.id) {
-      const prods = getProducts()
+    if (!products?.length) {
+      dispatch(fetchProducts)
+      return
+    }
 
-      const prod = prods.find((p: any) => p.id == params.id)
+    if (params.id) {
+      const prod = products.find((p: any) => p.id == params.id)
       if (prod) {
         setProduct(prod)
       }
     }
-  }, [getProducts, params])
+  }, [products, params])
+
+  const findVariation = (id: number) => {
+    if (!product || !product.variations.length) {
+      return 'G'
+    }
+
+    let found = product.variations[0].name
+    for (let i = 0; i < product.variations.length; i++) {
+      if (product.variations[i].id == id) {
+        found = product.variations[i].name
+        break
+      }
+    }
+    return found
+  }
 
   const addItem = () => {
+    if (!selectedVariation) {
+      alert('por favor selecione um tamanho')
+      return
+    }
     dispatch(addToCart({
       id: product.id,
-      name: product.name,
+      name: `${product.name} - ${findVariation(selectedVariation)}`,
       price: product.price,
       priceOld: product.priceOld,
       quantity: 1,
@@ -36,8 +60,6 @@ export default function Product({ params, search }: any) {
       variation: "M",
     }))
   }
-
-  const classOrder = ['aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block',]
 
   if (!product) return <></>
   return (
@@ -70,21 +92,11 @@ export default function Product({ params, search }: any) {
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          {product.images.toReversed().map((image: any) => (
-            <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+          {product.images.toReversed().map((image: any, index: number) => (
+            <div key={`image-gallery-item-${index}`} className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
               <Image src={image} alt={`foto de ${product.name}`} className="h-full w-full object-cover object-center" />
             </div>
           ))}
-          {/*           
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Model wearing plain black basic tee." className="h-full w-full object-cover object-center" />
-            </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
-              <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg" alt="Model wearing plain gray basic tee." className="h-full w-full object-cover object-center" />
-            </div>
-          </div>
-          */}
           <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg lg:hidden">
             <Image src={product.images[product.images.length - 1]} alt={`foto de ${product.name}`} className="h-full w-full object-cover object-center" />
           </div>
@@ -101,35 +113,9 @@ export default function Product({ params, search }: any) {
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">{formatCurrency(product.price)} <span className="text-red-400 line-through text-lg">{formatCurrency(product.priceOld)}</span></p>
 
-            {/* Reviews
-            <div className="mt-6">
-              <h3 className="sr-only">Reviews</h3>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  <svg className="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                  </svg>
-                  <svg className="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                  </svg>
-                  <svg className="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                  </svg>
-                  <svg className="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                  </svg>
-                  <svg className="h-5 w-5 flex-shrink-0 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <p className="sr-only">4 out of 5 stars</p>
-                <a href="#" className="ml-3 text-sm font-medium text-gray-600 hover:text-gray-500">117 avaliações</a>
-              </div>
-            </div>  */}
-
             <form className="mt-10">
-              {/* Colors */}
-              {/*
+              {/* Colors
+
               <div>
                 <h3 className="text-sm font-medium text-gray-900">Color</h3>
 
@@ -150,6 +136,7 @@ export default function Product({ params, search }: any) {
                   </div>
                 </fieldset>
               </div>
+
               */}
 
               {/* Sizes */}
@@ -159,73 +146,38 @@ export default function Product({ params, search }: any) {
                   <a href="#" className="text-sm font-medium text-gray-600 hover:text-gray-500">Guia de Tamanhos</a>
                 </div>
 
-                <fieldset aria-label="Choose a size" className="mt-4">
+                <div className="mt-4">
                   <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
-                      <span>PP</span>
-                      <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                        <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                          <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                        </svg>
-                      </span>
-                    </label>
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
-                      <span>P</span>
-                      <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                        <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                          <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                        </svg>
-                      </span>
-                    </label>
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="S" className="sr-only"/>
-                      <span>M</span>
-                      {/*
-                        Active: "border", Not Active: "border-2"
-                        Checked: "border-gray-500", Not Checked: "border-transparent"
-                      */}
-                      <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                    </label>
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="M" className="sr-only"/>
-                      <span>G</span>
-                      {/*
-                        Active: "border", Not Active: "border-2"
-                        Checked: "border-gray-500", Not Checked: "border-transparent"
-                      */}
-                      <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                    </label>
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="L" className="sr-only"/>
-                      <span>XG</span>
-                      {/*
-                        Active: "border", Not Active: "border-2"
-                        Checked: "border-gray-500", Not Checked: "border-transparent"
-                      */}
-                      <span className="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                    </label>
-                    {/* Active: "ring-2 ring-gray-500" */}
-                    <label className="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-2 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4">
-                      <input type="radio" name="size-choice" value="XXS" disabled className="sr-only"/>
-                      <span>XXG</span>
-                      <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                        <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                          <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                        </svg>
-                      </span>
-                    </label>
+                    {product.variations?.map((variation: Variation) => {
+                      const inStockClass = 'group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4'
+                      const outOfStockClass = 'group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-4'
+                      return (
+                        <div
+                          key={`prod-variation-${variation.id}`}
+                          onClick={() => setSelectedVariation(variation.id)} 
+                          className={variation.inStock ? `${inStockClass} ${selectedVariation == variation.id ? 'ring-2 ring-gray-500' : ''}` : outOfStockClass}
+                        >
+                          <span>{variation.name}</span>
+                          {!variation.inStock && (
+                            <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                              <svg className="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                                <line x1="0" y1="100" x2="100" y2="0" vectorEffect="non-scaling-stroke" />
+                              </svg>
+                            </span>
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
-                </fieldset>
+                </div>
               </div>
 
-              <button onClick={() => { addItem(); dispatch(openCart()) }} type="button" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Adicionar ao Carrinho</button>
+              <div
+                onClick={() => { if (selectedVariation) { addItem(); dispatch(openCart()) } }}
+                className={`mt-10 flex w-full items-center justify-center rounded-md border border-transparent ${selectedVariation ? 'bg-black cursor-pointer hover:bg-gray-800' : 'bg-gray-300 cursor-no-drop'} px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2`}
+              >
+                Adicionar ao Carrinho
+              </div>
             </form>
           </div>
 
