@@ -1,23 +1,41 @@
 "use client"
 import { useEffect, useState } from "react"
 import { getProducts } from "@/app/_services/catalog.service"
+import { useAppDispatch } from "@/lib/hooks"
+import { CartItem, addToCart } from "@/lib/features/cart/cartSlice"
+import { openCart } from "@/lib/features/cart/uiSlice"
 import Image from "next/image"
 import sizingGuide from "@/assets/img/sizing-guide.webp"
 import { formatCurrency } from "@/app/_utils"
 
 export default function Product({ params, search }: any) {
+  const dispatch = useAppDispatch()
   const [product, setProduct] = useState<any>(null)
+  const [variation, setVariation] = useState<string>("")
+
   useEffect(() => {
     if (params.id) {
       const prods = getProducts()
 
       const prod = prods.find((p: any) => p.id == params.id)
-      console.log(prod)
       if (prod) {
         setProduct(prod)
       }
     }
   }, [getProducts, params])
+
+  const addItem = () => {
+    dispatch(addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      priceOld: product.priceOld,
+      quantity: 1,
+      images: product.images,
+      collection: 'caci_debut_collection',
+      variation: "M",
+    }))
+  }
 
   const classOrder = ['aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block',]
 
@@ -207,7 +225,7 @@ export default function Product({ params, search }: any) {
                 </fieldset>
               </div>
 
-              <button type="submit" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Adicionar ao Carrinho</button>
+              <button onClick={() => { addItem(); dispatch(openCart()) }} type="button" className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Adicionar ao Carrinho</button>
             </form>
           </div>
 

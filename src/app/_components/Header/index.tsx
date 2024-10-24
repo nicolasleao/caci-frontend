@@ -1,5 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
+import { useAppDispatch } from "@/lib/hooks"
+import { openCart } from "@/lib/features/cart/uiSlice"
 import Link from "next/link"
 import { Bars4Icon, ShoppingBagIcon } from '@heroicons/react/24/solid'
 import logoTransparent from "@/assets/img/logo_transparente.png"
@@ -9,16 +11,12 @@ import ShoppingBag from "@/app/_components/ShoppingBag"
 import gsap from "gsap"
 
 export default function Header() {
+    const dispatch = useAppDispatch()
     const [menuActive, setMenuActive] = useState(false)
-    const [cartActive, setCartActive] = useState(false)
     const toggleMenu = () => setMenuActive(!menuActive)
     
-    const openCart = () => {
-        document.querySelector('#cart-wrapper')?.classList.remove('hidden')
-        document.querySelector('#cart-backdrop')?.classList.remove('hidden')
-        gsap.fromTo(`#cart-backdrop`, { opacity: 0 }, { opacity: 1, ease: "power2.out" });
-        gsap.fromTo(`#cart-wrapper`, { x: '100%' }, { x: 1, ease: "power2.out", });
-        setCartActive(true)
+    const openCartLocal = () => {
+        dispatch(openCart())
     }
 
     const windowDimensions = useWindowDimensions()
@@ -46,7 +44,7 @@ export default function Header() {
                         {menuItems.map(item => (
                             <Link key={item.href} href={item.href} className="mr-5 hover:text-gray-900">{item.name}</Link>
                         ))}
-                        <button onClick={openCart} className="flex items-center text-black cursor-pointer">
+                        <button onClick={openCartLocal} className="flex items-center text-black cursor-pointer">
                             <ShoppingBagIcon className="w-[20px] mr-2 mb-1"/>(4)
                         </button>
                     </nav>
@@ -60,7 +58,7 @@ export default function Header() {
                     {menuItems.map(item => (
                         <Link key={item.href} href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
                     ))}
-                    <button onClick={openCart} className="flex flex-row items-center mx-auto mt-5 mb-4">
+                    <button onClick={openCartLocal} className="flex flex-row items-center mx-auto mt-5 mb-4">
                         <ShoppingBagIcon className="w-[24px] mr-2 mb-1"/> Carrinho (4)
                     </button>
                 </div>

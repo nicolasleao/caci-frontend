@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { getProducts } from "@/app/_services/catalog.service"
+import { getCartItems, CartItem } from "@/app/_services/cart.service"
 import { formatCurrency } from "../_utils"
 import Image from "next/image"
 
@@ -10,16 +10,16 @@ export default function FullCart() {
   const [subtotalOld, setSubtotalOld] = useState<number>(0)
 
   useEffect(() => {
-      const result = getProducts()
+      const result = getCartItems()
       let total = 0, totalOld = 0
-      result.forEach(product => {
+      result.forEach((product: CartItem) => {
           total += product.price
           totalOld += product.priceOld || 0
       })
       setProducts(result)
       setSubtotal(total)
       setSubtotalOld(totalOld)
-  }, [getProducts])
+  }, [getCartItems])
 
   return (
     <>
@@ -167,6 +167,6 @@ export default function FullCart() {
                         </div>
                     </div>
                 </div>
-                </>
+            </>
   )
 }
