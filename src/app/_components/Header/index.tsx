@@ -52,7 +52,7 @@ export default function Header() {
                 </div>
             </header>
             {menuActive && (
-                <div className={`mobile-menu w-full flex flex-col text-center md:invisible fixed bg-white ${scrollY > 30 ? 'pt-8' : 'pt-20'}`}>
+                <div className={`mobile-menu w-full flex flex-col text-center md:invisible fixed bg-white border-b border-gray-100 ${scrollY > 30 ? 'top-8' : 'top-20'}`}>
                     {menuItems.map(item => (
                         <Link key={item.href} href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
                     ))}

@@ -14,15 +14,15 @@ import SubscribeModal from "../_components/SubscribeModal"
 export default function Home() {
   return (
     <div>
-      <div className="w-full h-dvh">
+      <div className="w-full h-dvh mt-20">
         <Link href="/produtos">
           <Image src={banner} alt="Foto Close da CACI Lisa Branca" className="object-cover" />
         </Link>
       </div>
       <Link href="/produtos">
         <div className="w-full flex h-50vh">
-            <Image src={vertical1} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-10 pr-5 pl-10" />
-            <Image src={vertical2} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-10 pl-5 pr-10" />
+            <Image src={vertical1} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-1 pr-1 pl-1 md:py-10 md:pr-5 md:pl-10" />
+            <Image src={vertical2} alt="Foto Close da CACI Lisa Branca" className="w-1/2 py-1 pr-1 pl-1 md:py-10 md:pl-5 md:pr-10" />
         </div>
       </Link>
       <div className="bg-white">
