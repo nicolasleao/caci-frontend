@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
 import { CartItem, addToCart, removeFromCart } from "@/lib/features/cart/cart.slice"
+import { fetchCart } from "@/lib/features/cart/cart.actions"
 import { closeCart } from "@/lib/features/ui/ui.slice"
 import { formatCurrency } from "@/lib/utils/index"
 import Image from "next/image"
@@ -26,6 +27,10 @@ export default function Header() {
             gsap.fromTo(`#cart-wrapper`, { x: 1 }, { x: '100%', ease: "power2.in", });
         }
     }, [cartActive])
+
+    useEffect(() => {
+        dispatch(fetchCart)
+    }, [])
 
     return (
         <div className="relative z-10 caci-cart-ajax" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">

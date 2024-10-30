@@ -1,25 +1,13 @@
 "use client"
 import { useState, useEffect } from "react"
-import { getCartItems, CartItem } from "@/app/_services/cart.service"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
+import { CartItem } from "@/lib/features/cart/cart.slice"
 import { formatCurrency } from "../../lib/utils"
 import Image from "next/image"
 
 export default function FullCart() {
-  const [products, setProducts] = useState<any[]>([])
-  const [subtotal, setSubtotal] = useState<number>(0)
-  const [subtotalOld, setSubtotalOld] = useState<number>(0)
-
-  useEffect(() => {
-      const result = getCartItems()
-      let total = 0, totalOld = 0
-      result.forEach((product: CartItem) => {
-          total += product.price
-          totalOld += product.priceOld || 0
-      })
-      setProducts(result)
-      setSubtotal(total)
-      setSubtotalOld(totalOld)
-  }, [getCartItems])
+    const dispatch = useAppDispatch()
+    const cartData = useAppSelector(state => state.cart)
 
   return (
     <>
@@ -28,16 +16,16 @@ export default function FullCart() {
 
             <div className="grid md:grid-cols-3 gap-8 mt-16">
                 <div className="md:col-span-2 space-y-4">
-                  {products.map((product: any) => (
+                  {cartData?.items?.map((item: CartItem) => (
                     <>
                       <div className="grid grid-cols-3 items-start gap-4">
                           <div className="col-span-2 flex items-start gap-4">
                               <div className="w-28 h-28 max-sm:w-24 max-sm:h-24 shrink-0 p-2 rounded-md">
-                                  <Image src={product.images[0]} alt={`Foto de ${product.name}`} className="w-full h-full object-contain" />
+                                  <Image src={item.images[0]} alt={`Foto de ${item.name}`} className="w-full h-full object-contain" />
                               </div>
 
                               <div className="flex flex-col">
-                                  <h3 className="text-base font-bold text-gray-800">{product.name}</h3>
+                                  <h3 className="text-base font-bold text-gray-800">{item.name}</h3>
                                   <p className="text-xs font-semibold text-gray-500 mt-0.5">Tam. G</p>
 
                                   <button type="button" className="mt-6 font-semibold text-red-500 text-xs flex items-center gap-1 shrink-0">
@@ -51,7 +39,7 @@ export default function FullCart() {
                           </div>
 
                           <div className="ml-auto">
-                              <h4 className="text-lg max-sm:text-base font-bold text-gray-800">{formatCurrency(product.price)}</h4>
+                              <h4 className="text-lg max-sm:text-base font-bold text-gray-800">{formatCurrency(item.price)}</h4>
 
                               <button type="button"
                                   className="mt-6 flex items-center px-3 py-1.5 border border-gray-300 text-gray-800 text-xs outline-none bg-transparent rounded-md">
@@ -101,8 +89,8 @@ export default function FullCart() {
                                                 <path d="M0 512h512V0H0Z" data-original="#000000"></path>
                                             </clipPath>
                                         </defs>
-                                        <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                                            <path fill="none" stroke-miterlimit="10" stroke-width="40"
+                                        <g clipPath="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
+                                            <path fill="none" strokeMiterlimit="10" strokeWidth="40"
                                                 d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
                                                 data-original="#000000"></path>
                                             <path
@@ -124,11 +112,16 @@ export default function FullCart() {
                     </form>
 
                     <ul className="text-gray-800 mt-6 space-y-3">
-                        <li className="flex flex-wrap gap-4 text-sm">Subtotal <span className="ml-auto font-bold">{formatCurrency(subtotalOld)}</span></li>
+                        <li className="flex flex-wrap gap-4 text-sm">Subtotal <span className="ml-auto font-bold">{formatCurrency(cartData?.totalOld)}</span></li>
                         <li className="flex flex-wrap gap-4 text-sm">Frete <span className="ml-auto font-bold">-</span></li>
-                        <li className="gap-4 text-sm">Descontos <div className="flex flex-col"><span className="ml-auto font-bold text-red-400">- {formatCurrency(subtotalOld - subtotal)}</span><span className="ml-auto font-bold text-red-400">(10% OFF) - {formatCurrency(subtotal * 0.1)}</span></div></li>
+                        <li className="gap-4 text-sm">Descontos
+                            <div className="flex flex-col">
+                                <span className="ml-auto font-bold text-red-400">- {formatCurrency(cartData?.totalOld - cartData?.total)}</span>
+                                {/* <span className="ml-auto font-bold text-red-400">(10% OFF) - {formatCurrency(cartData?.total * 0.1)}</span> */}
+                            </div>
+                        </li>
                         <hr className="border-gray-300" />
-                        <li className="flex flex-wrap gap-4 text-sm font-bold">Total <span className="ml-auto">{formatCurrency(subtotal - 5600)}</span></li>
+                        <li className="flex flex-wrap gap-4 text-sm font-bold">Total <span className="ml-auto">{formatCurrency(cartData?.total - (cartData?.totalOld - cartData?.total))}</span></li>
                     </ul>
 
                     <div className="mt-6 space-y-3">
@@ -140,6 +133,7 @@ export default function FullCart() {
                 
             </div>
         </div>
+{/*         
         <div className="bg-white w-full">
                     <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Você também pode gostar</h2>
@@ -166,7 +160,7 @@ export default function FullCart() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </>
   )
 }

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { saveCartToStorage } from './cart.actions'
 
 export interface CartItem {
     id: number,
@@ -12,7 +13,7 @@ export interface CartItem {
     variation: string,
 }
 
-interface CartState {
+export interface CartState {
     items: CartItem[],
     totalOld: number,
     total: number,
@@ -57,6 +58,7 @@ const cartSlice = createSlice({
 
             state.total = total
             state.totalOld = totalOld
+            saveCartToStorage(state)
         },
         removeFromCart(state, action: PayloadAction<CartItem>) {
             // find if item exists in cart
@@ -79,9 +81,24 @@ const cartSlice = createSlice({
 
             state.total = total
             state.totalOld = totalOld
+            saveCartToStorage(state)
+        },
+        setCartItems(state, action: PayloadAction<CartItem[]>) {
+            // find if item exists in cart
+            let total = 0
+            let totalOld = 0
+
+            for (let i = 0; i < action.payload.length; i++) {
+                total += action.payload[i].price * action.payload[i].quantity
+                totalOld += action.payload[i].priceOld * action.payload[i].quantity
+            }
+
+            state.items = action.payload
+            state.total = total
+            state.totalOld = totalOld
         },
     },
 })
 
-export const { clearCart, addToCart, removeFromCart } = cartSlice.actions
+export const { clearCart, addToCart, removeFromCart, setCartItems } = cartSlice.actions
 export default cartSlice.reducer
