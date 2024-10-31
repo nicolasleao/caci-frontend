@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { useAppDispatch } from "@/lib/hooks/redux"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks/redux"
 import { openCart } from "@/lib/features/ui/ui.slice"
 import Link from "next/link"
 import { Bars4Icon, ShoppingBagIcon } from '@heroicons/react/24/solid'
@@ -12,6 +12,7 @@ import ShoppingBag from "@/app/_components/ShoppingBag"
 export default function Header() {
     const dispatch = useAppDispatch()
     const [menuActive, setMenuActive] = useState(false)
+    const cartData = useAppSelector(state => state.cart)
     const toggleMenu = () => setMenuActive(!menuActive)
     
     const openCartLocal = () => {
@@ -34,7 +35,7 @@ export default function Header() {
     return (
         <>
             <header className={`${scrollY >= 30 ? 'scroll' : ''} caci-header text-gray-600 body-font border-bottom mx-auto fixed bg-white w-full border-b border-gray-100`}>
-                <div className={`caci-header-inner mx-auto flex p-5 flex-row items-center justify-between ${scrollY >= 30 ? 'h-[42px]' : 'h-[55px]'}`}>
+                <div className={`caci-header-inner mx-auto flex p-5 flex-row items-center justify-between ${scrollY >= 30 ? 'h-[55px]' : 'h-[55px]'}`}>
                     <a href="/" className="flex title-font font-medium items-center text-gray-900 md:mb-0">
                         <Image className="ml-3" src={logoTransparent} alt="Logo principal" width="92" />
                     </a>
@@ -43,7 +44,7 @@ export default function Header() {
                             <Link key={item.href} href={item.href} className="mr-5 hover:text-gray-900">{item.name}</Link>
                         ))}
                         <button onClick={openCartLocal} className="flex items-center text-black cursor-pointer">
-                            <ShoppingBagIcon className="w-[20px] mr-2 mb-1"/>(4)
+                            <ShoppingBagIcon className="w-[20px] mr-2 mb-1"/>({cartData?.items?.length || 0})
                         </button>
                     </nav>
                     <button className="w-[32px] md:invisible" onClick={toggleMenu}>
@@ -57,7 +58,7 @@ export default function Header() {
                         <Link key={item.href} href={item.href} className="mt-5 hover:text-gray-900">{item.name}</Link>
                     ))}
                     <button onClick={openCartLocal} className="flex flex-row items-center mx-auto mt-5 mb-4">
-                        <ShoppingBagIcon className="w-[24px] mr-2 mb-1"/> Carrinho (4)
+                        <ShoppingBagIcon className="w-[24px] mr-2 mb-1"/> Carrinho ({cartData?.items?.length || 0})
                     </button>
                 </div>
             )}
