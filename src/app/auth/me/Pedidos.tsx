@@ -38,7 +38,7 @@ export default function Pedidos() {
                         <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                             <dt className="text-base font-medium text-gray-500">ID:</dt>
                             <dd className="mt-1.5 text-base font-semibold text-gray-800 ">
-                                <a href="#" className="hover:underline">#FWB127364372</a>
+                                <a href="/pedido/1" className="hover:underline">#FWB127364372</a>
                             </dd>
                         </dl>
 
@@ -64,7 +64,7 @@ export default function Pedidos() {
 
                         <div className="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
                             <button type="button" className="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 lg:w-auto">Cancelar</button>
-                            <a href="#" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
+                            <a href="/pedido/1" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@ export default function Pedidos() {
                         <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                             <dt className="text-base font-medium text-gray-500">ID:</dt>
                             <dd className="mt-1.5 text-base font-semibold text-gray-800 ">
-                                <a href="#" className="hover:underline">#FWB125467980</a>
+                                <a href="/pedido/1" className="hover:underline">#FWB125467980</a>
                             </dd>
                         </dl>
 
@@ -97,7 +97,7 @@ export default function Pedidos() {
                         </dl>
 
                         <div className="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
-                            <a href="#" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
+                            <a href="/pedido/1" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
                         </div>
                     </div>
 
@@ -105,7 +105,7 @@ export default function Pedidos() {
                         <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                             <dt className="text-base font-medium text-gray-500">ID:</dt>
                             <dd className="mt-1.5 text-base font-semibold text-gray-800 ">
-                                <a href="#" className="hover:underline">#FWB139485607</a>
+                                <a href="/pedido/1" className="hover:underline">#FWB139485607</a>
                             </dd>
                         </dl>
 
@@ -131,7 +131,7 @@ export default function Pedidos() {
 
                         <div className="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
                             <button type="button" className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 lg:w-auto">Order again</button>
-                            <a href="#" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
+                            <a href="/pedido/1" className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 lg:w-auto">Ver Detalhes</a>
                         </div>
                     </div>
 
